@@ -1,0 +1,7 @@
+ <div class="container-fluid bg-dark small text-light">
+     <ul class="nav nav-fill nav-dark">
+        {% for item in footer %}
+         <li class="nav-item"><a href="{% url 'anw-page' item.slug %}" class="nav-link text-light">{{ item }}</a></li>
+        {% endfor %}
+     </ul>
+</div>
