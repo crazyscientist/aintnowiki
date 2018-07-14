@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Tag: {{ tag }} </h1>
+
+        <h2>Matching Pages</h2>
+        <div class="list-group">
+            {% for obj in page_list %}
+                <a class="list-group-item" href="{% url 'anw-page' obj.slug %}">{{ obj }}</a>
+            {% endfor %}
+
+        </div>
+
+        <h2>Related Tags</h2>
+        <div class="list-group">
+            {% for tag in related_tags %}
+                <a href="{% url 'tags' tag %}" class="list-group-item">{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

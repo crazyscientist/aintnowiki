@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
+from tagging.models import Tag
 
 import anw.models
 import time
@@ -14,6 +15,7 @@ class PageView(DetailView):
         context = super().get_context_data(**kwargs)
         context["navigation"] = self.get_navigation_tree()
         context["footer"] = anw.models.Page.objects.filter(footer=True).order_by("title")
+        context["tags"] = Tag.objects.get_for_object(self.get_object())
         return context
 
     @staticmethod

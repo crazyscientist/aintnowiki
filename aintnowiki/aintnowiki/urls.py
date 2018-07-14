@@ -16,11 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+from tagging import views
+from anw import models
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
-    path('wiki/', include('anw.urls'))
+    path('wiki/', include('anw.urls')),
+    path('tags/<str:tag>/', views.TaggedObjectList.as_view(model=models.Page, template_name="page_list.html", related_tags=True), name="tags")
 ]
 
 if settings.DEBUG:

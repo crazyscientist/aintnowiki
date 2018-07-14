@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ object.title }} </h1>
+    <div class="container">
+        <h1>{{ object.title }} </h1>
 
-    {{ object.body|safe }}
+        {{ object.body|safe }}
+
+        <div class="container">
+            {% for tag in tags %}
+                <a href="{% url 'tags' tag %}" class="btn btn-outline-secondary">{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
