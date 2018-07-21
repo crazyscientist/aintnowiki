@@ -1,5 +1,8 @@
+import random
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
+from django.conf import settings
+
 from tagging.models import Tag
 
 import anw.models
@@ -38,3 +41,20 @@ class PageView(DetailView):
                 nav.append(parent)
 
         return nav
+
+
+class HomeView(PageView):
+    template_name="page.html"
+    model = anw.models.Page
+    queryset = model.objects.filter(slug=getattr(settings, "ANW_HOMEPAGE", "home"))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context["tags"] = True
+        pks = set()
+        count = self.model.objects.count()
+        while len(pks) < 5 or len(pks) < count - 1:
+            pks.add(random.randint(0, count-1))
+        context["carousel"] = self.model.objects.filter(pk__in=pks)
+
+        return context

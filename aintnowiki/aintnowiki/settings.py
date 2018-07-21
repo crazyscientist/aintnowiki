@@ -146,3 +146,5 @@ TINYMCE_DEFAULT_CONFIG = {
 	'verify_html': 'false',
 	# 'file_browser_callback': 'CustomFileBrowser'
 }
+
+ANW_HOMEPAGE = "home"

@@ -14,11 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
 
 import anw.views
 
 urlpatterns = [
-    path('', anw.views.PageView.as_view(), name="anw-home"),
+    path('', anw.views.HomeView.as_view(), {'slug': getattr(settings, "ANW_HOMEPAGE", "home")}, name="anw-home",),
     path('page/<slug:slug>', anw.views.PageView.as_view(), name="anw-page"),
 ]
