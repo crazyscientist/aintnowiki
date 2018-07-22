@@ -1,28 +1,26 @@
 {% extends 'base.html' %}
+{% load tagging_tags %}
 
 {% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {% for crumb in object.get_breadcrumbs %}
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="{% url 'anw-page' crumb.slug %}">{{ crumb }}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
     <div class="container">
-        <h1>{{ object.title }} </h1>
 
         {{ object.body|safe }}
 
-        <div class="container">
-            {% for tag in tags %}
-                <a href="{% url 'tags' tag %}" class="btn btn-outline-secondary">{{ tag }}</a>
-            {% endfor %}
-        </div>
+    </div>
 
-        {% if carousel %}
-            <div class="card-deck">
-                {% for p in carousel %}
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">{{ p }}</div>
-                            <div class="card-body">{{ p.meta_description }}</div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
+    <div class="container">
+        {% tags_for_object object as object_tags %}
+        {% for tag in object_tags %}
+            <a href="{% url 'tags' tag %}" class="btn btn-outline-secondary">{{ tag }}</a>
+        {% endfor %}
     </div>
 {% endblock %}

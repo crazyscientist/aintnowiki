@@ -1,4 +1,8 @@
- <div class="container-fluid bg-dark small text-light">
+{% load get_footer %}
+
+{% get_footer_items as footer %}
+
+<div class="container-fluid bg-dark small text-light pt-5 pb-5 mt-5">
      <ul class="nav nav-fill nav-dark">
         {% for item in footer %}
          <li class="nav-item"><a href="{% url 'anw-page' item.slug %}" class="nav-link text-light">{{ item }}</a></li>

@@ -30,3 +30,11 @@ class Page(models.Model):
         tags = map(lambda x: str(x), self.get_tags())
         keywords = shlex.split(self.meta_keywords)
         return ', '.join(list(tags) + keywords)
+
+    def get_breadcrumbs(self):
+        crumbs = []
+        if self.parent:
+            crumbs += self.parent.get_breadcrumbs()
+        crumbs.append(self)
+        print ("DEBUG:", crumbs)
+        return crumbs
