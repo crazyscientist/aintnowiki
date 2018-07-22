@@ -21,5 +21,7 @@ import anw.views
 
 urlpatterns = [
     path('', anw.views.HomeView.as_view(), {'slug': getattr(settings, "ANW_HOMEPAGE", "home")}, name="anw-home",),
-    path('page/<slug:slug>', anw.views.PageView.as_view(), name="anw-page"),
+    path('page/<slug:slug>/', anw.views.PageView.as_view(), name="anw-page"),
+    path('sitemap/', anw.views.SitemapView.as_view(), name="anw-sitemap"),
+    path('sitemap/elements/', anw.views.SitemapJsonView.as_view(), name="anw-sitemap-elements"),
 ]

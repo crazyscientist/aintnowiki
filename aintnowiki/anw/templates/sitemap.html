@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/themes/default/style.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/jstree.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#sitemap_tree').jstree({
+                "core" : {
+                    "multiple": false,
+                    "animation" : 0,
+                    "check_callback" : false,
+                    "error": function(e){console.log("ERROR!"); console.log(e);},
+                    "themes" : { "stripes" : true },
+                    'data' : {
+                        'url' : function (node) {
+                            return '{% url "anw-sitemap-elements" %}'
+                        },
+                        'data' : function (node) {
+                            if ( node.id === '#' ) {
+                                return {'id': '', 'show_files': true };
+                            } else {
+                                return { 'id' : node.id, 'show_files': true };
+                            }
+                        }
+                    },
+                },
+                "plugins" : [],
+
+            });
+        });
+    </script>
+
+    <h1>Sitemap</h1>
+    <div class="container" id="sitemap_tree">
+
+    </div>
+{% endblock %}
