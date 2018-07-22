@@ -11,5 +11,5 @@ setup(
     url='https://pritschet.me',
     packages=['aintnowiki',],
     zip_safe=False,
-    install_requires=["django=>2.0,<2.1", "django-tinymce", "django-tagging"]
+    install_requires=["django=>2.0,<2.1", "django-tinymce", "django-tagging", "django-bootstrap4"]
 )
