@@ -10,24 +10,28 @@
                 "core" : {
                     "multiple": false,
                     "animation" : 0,
-                    "check_callback" : false,
+                    "check_callback" : true,
                     "error": function(e){console.log("ERROR!"); console.log(e);},
-                    "themes" : { "stripes" : true },
+                    "themes" : {
+                        "stripes" : false,
+                        "responsive": true,
+                        "icons": false,
+                        "variant": "large"
+                    },
                     'data' : {
                         'url' : function (node) {
                             return '{% url "anw-sitemap-elements" %}'
                         },
                         'data' : function (node) {
                             if ( node.id === '#' ) {
-                                return {'id': '', 'show_files': true };
+                                return {'slug': '' };
                             } else {
-                                return { 'id' : node.id, 'show_files': true };
+                                return { 'slug' : node.id };
                             }
                         }
                     },
                 },
                 "plugins" : [],
-
             });
         });
     </script>

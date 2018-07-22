@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
     'tagging',
+    'bootstrap4',
     'anw'
 ]
 

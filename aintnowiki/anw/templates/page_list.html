@@ -1,21 +1,38 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 
 {% block content %}
+     {% if form %}
+        <div class="container">
+            <div class="col-6 mx-auto">
+                <form action="{% url 'anw-search' %}" method="get" class="form-inline">
+                    {% csrf_token %}
+                    {% bootstrap_field form.searchstring show_label=False show_help=False size="large" %}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="container">
-        <h1>Tag: {{ tag }} </h1>
+        {% if tag %}
+            <h1>Tag: {{ tag }} </h1>
+        {% endif %}
 
-        <h2>Matching Pages</h2>
-        <div class="list-group">
-            {% for obj in page_list %}
-                <a class="list-group-item" href="{% url 'anw-page' obj.slug %}">{{ obj }}</a>
-            {% endfor %}
-        </div>
+        {% if object_list %}
+            <h2>Results</h2>
+            <div class="card-columns">
+                {% for p in object_list %}
+                    {% include 'page/page_card.html' %}
+                {% endfor %}
+            </div>
+        {% endif %}
 
-        <h2>Related Tags</h2>
-        <div class="list-group">
+        {% if related_tags %}
+            <h2>Related Tags</h2>
             {% for tag in related_tags %}
-                <a href="{% url 'tags' tag %}" class="list-group-item">{{ tag }}</a>
+                <a href="{% url 'tags' tag %}" class="btn btn-info m-2 shadow">{{ tag }}</a>
             {% endfor %}
-        </div>
+        {% endif %}
     </div>
 {% endblock %}

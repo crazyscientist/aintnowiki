@@ -15,7 +15,7 @@ class Page(models.Model):
     featured = models.BooleanField(help_text='Should it appear on the navigation bar?', blank=True, default=False)
     footer = models.BooleanField(help_text = 'Should it appear in the footer?', blank = True, default=False)
     tags = tagging.fields.TagField(help_text='List of Tags')
-    parent = models.ForeignKey('Page', models.PROTECT, help_text='Parent Page', blank=True, null=True)
+    parent = models.ForeignKey('Page', models.PROTECT, help_text='Parent Page', blank=True, null=True, related_name='children_set')
     meta_keywords = models.TextField(help_text="Keywords for meta tag.", blank=True, null=True)
     meta_description = models.TextField(help_text="Description for meta tag and children listing.", blank=True,
         null=True)

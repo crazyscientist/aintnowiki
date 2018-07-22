@@ -1,4 +1,5 @@
 {% load get_nav_tree %}
+{% load bootstrap4 %}
 
 {% get_navigation_tree as navigation %}
 
@@ -10,7 +11,6 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-
         {% for item in navigation %}
             {% if item.children %}
                 <li class="nav-item nav-fill dropdown">
@@ -29,5 +29,9 @@
             {% endif %}
         {% endfor %}
     </ul>
+    <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'anw-search' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchstring">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
 </nav>

@@ -1,0 +1,18 @@
+{% load tagging_tags %}
+
+<div class="card shadow">
+    <div class="card-header">
+        <a href="{% url 'anw-page' p.slug %}">{{ p }}</a>
+    </div>
+    <div class="card-body">
+        <p class="card-text">{{ p.meta_description }}</p>
+    </div>
+    <div class="card-footer">
+        {% tags_for_object p as object_tags %}
+        {% for tag in object_tags %}
+            <a href="{% url 'tags' tag %}" class="btn btn-secondary m-2 shadow">{{ tag }}</a>
+        {% empty %}
+             <span class="btn m-2 hidden">&nbsp</span>
+        {% endfor %}
+    </div>
+</div>

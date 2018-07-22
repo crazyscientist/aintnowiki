@@ -24,4 +24,5 @@ urlpatterns = [
     path('page/<slug:slug>/', anw.views.PageView.as_view(), name="anw-page"),
     path('sitemap/', anw.views.SitemapView.as_view(), name="anw-sitemap"),
     path('sitemap/elements/', anw.views.SitemapJsonView.as_view(), name="anw-sitemap-elements"),
+    path('search/', anw.views.SearchView.as_view(), name="anw-search")
 ]

@@ -20,7 +20,7 @@
     <div class="container">
         {% tags_for_object object as object_tags %}
         {% for tag in object_tags %}
-            <a href="{% url 'tags' tag %}" class="btn btn-outline-secondary">{{ tag }}</a>
+            <a href="{% url 'tags' tag %}" class="btn btn-secondary m-2">{{ tag }}</a>
         {% endfor %}
     </div>
 {% endblock %}
