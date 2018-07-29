@@ -2,3 +2,4 @@ django
 django-tinymce
 django-tagging
 django-bootstrap4
+pillow

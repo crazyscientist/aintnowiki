@@ -1,9 +1,15 @@
 from django.contrib import admin
-import anw.models
+from anw.models import Page, Image
 
 
 # Register your models here.
-@admin.register(anw.models.Page)
+@admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'parent', 'featured')
+
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+    list_display = ('title', 'featured')

@@ -148,5 +148,8 @@ TINYMCE_DEFAULT_CONFIG = {
 	# 'file_browser_callback': 'CustomFileBrowser'
 }
 
+MEDIA_ROOT = BASE_DIR
+MEDIA_URL = "/media/"
+
 ANW_HOMEPAGE = "home"
 ANW_NUM_CARDS = 3

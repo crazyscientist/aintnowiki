@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        {% if tag %}
+            <h1>Tag: {{ tag }} </h1>
+        {% endif %}
+
+        {% if object_list %}
+            <h2>Results</h2>
+            <div class="card-columns">
+                {% for p in object_list %}
+                    {% include 'image/image_card.html' %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if related_tags %}
+            <h2>Related Tags</h2>
+            {% for tag in related_tags %}
+                <a href="{% url 'tags' tag %}" class="btn btn-info m-2 shadow">{{ tag }}</a>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

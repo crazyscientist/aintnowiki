@@ -23,9 +23,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('wiki/', include('anw.urls')),
-    path('tags/<str:tag>/', views.TaggedObjectList.as_view(model=models.Page, template_name="page_list.html", related_tags=True), name="tags")
+    path('tags/<str:tag>/', views.TaggedObjectList.as_view(
+        model=models.Page,
+        template_name="page_list.html",
+        related_tags=True
+    ), name="tags")
 ]
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    from django.conf.urls.static import static
     urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

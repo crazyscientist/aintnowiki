@@ -1,3 +1,4 @@
+from itertools import chain
 import random
 from django.db.models import Count, Q
 from django.http import Http404
@@ -7,13 +8,16 @@ from django.conf import settings
 
 import anw.forms
 from anw.mixins import JSONResponseMixin
-import anw.models
+from anw.models import Page, Image
 
+
+class FakeQuerySet(object):
+    model=[]
 
 # Create your views here.
 class PageView(DetailView):
     template_name = "page.html"
-    model = anw.models.Page
+    model = Page
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -22,7 +26,7 @@ class PageView(DetailView):
 
 class HomeView(PageView):
     template_name = "index.html"
-    model = anw.models.Page
+    model = Page
     queryset = model.objects.filter(slug=getattr(settings, "ANW_HOMEPAGE", "home"))
 
     def get_context_data(self, **kwargs):
@@ -34,8 +38,9 @@ class HomeView(PageView):
             getattr(settings, "ANW_NUM_CARDS", 5),
             count
         )
+
         while True:
-            pks.add(random.randint(1, count-1))
+            pks.add(random.randint(1, count))
             if len(pks) >= limit:
                 break
         context["carousel"] = self.model.objects.filter(pk__in=pks)
@@ -45,7 +50,7 @@ class HomeView(PageView):
 
 class SearchView(FormMixin, ListView):
     form_class = anw.forms.SearchForm
-    model = anw.models.Page
+    model = Page
     template_name = "page_list.html"
     paginate_by = 20
 
@@ -105,3 +110,12 @@ class SitemapJsonView(JSONResponseMixin, ListView):
 
     def render_to_response(self, context, **response_kwargs):
         return self.render_to_json_response(context, safe=False, **response_kwargs)
+
+
+class ImageListView(ListView):
+    model = Image
+    template_name = "image_list.html"
+
+    def render_to_response(self, context, **response_kwargs):
+        print(context)
+        return super().render_to_response(context, **response_kwargs)
