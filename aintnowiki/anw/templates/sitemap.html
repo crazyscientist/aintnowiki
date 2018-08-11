@@ -32,7 +32,12 @@
                     },
                 },
                 "plugins" : [],
-            });
+            }).bind(
+                "select_node.jstree",
+                function(e, data) {
+                    window.open(data.node.a_attr.href, data.node.a_attr.target);
+                }
+            );
         });
     </script>
 

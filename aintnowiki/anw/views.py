@@ -88,7 +88,8 @@ class SitemapJsonView(JSONResponseMixin, ListView):
             "id": obj.slug,
             # "parent": getattr(obj.parent, "slug", "#") or "#",
             "text": obj.title,
-            "children": bool(obj.num_children)
+            "children": bool(obj.num_children),
+            "a_attr": {"href": obj.get_url()}
         }
 
     def get_data(self, context):
