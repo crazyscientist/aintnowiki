@@ -43,6 +43,9 @@ class Page(BaseModel):
         crumbs.append(self)
         return crumbs
 
+    def get_children(self):
+        return self.children_set.all()
+
 
 class Image(BaseModel):
     body = models.ImageField(upload_to='uploads/%Y/%m/%d/')

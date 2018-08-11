@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load tagging_tags %}
+{% load render_carousel %}
 
 {% block content %}
     <nav aria-label="breadcrumb">
@@ -23,4 +24,8 @@
             <a href="{% url 'tags' tag %}" class="btn btn-secondary m-2">{{ tag }}</a>
         {% endfor %}
     </div>
+
+    {% if carousel %}
+        {% render_carousel "Related pages" carousel %}
+    {% endif %}
 {% endblock %}

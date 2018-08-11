@@ -15,3 +15,7 @@ body {
 .cloud-4 {font-size: 120%;}
 .cloud-5 {font-size: 150%;}
 .cloud-6 {font-size: 170%; font-weight: bold;}
+
+.card-columns {
+  column-count: 4;
+}

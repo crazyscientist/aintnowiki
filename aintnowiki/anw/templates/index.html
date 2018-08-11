@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load tagging_tags %}
+{% load multitag %}
+{% load render_carousel %}
 
 {% block content %}
     <div class="container">
@@ -8,7 +10,7 @@
                 {{ object.body|safe }}
             </div>
             <div class="col-3 p-3">
-                {% tag_cloud_for_model anw.Page as tagcloud with steps=6 %}
+                {% get_tagcloud as tagcloud with steps=6 %}
                 {% for tag in tagcloud %}
                     <a href="{% url 'tags' tag %}" class="btn btn-primary m-2 cloud-{{ tag.font_size }}">{{ tag }}</a>
                 {% endfor %}
@@ -23,15 +25,11 @@
         {% endfor %}
     </div>
 
-    <div class="container">
-        {% if carousel %}
-            <div class="container mt-3 mb-3">
-                <div class="card-deck">
-                    {% for p in carousel %}
-                        {% include 'page/page_card.html' %}
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
-    </div>
+    {% if carousel %}
+        {% render_carousel "Related pages" carousel %}
+    {% endif %}
+
+    {% if random_carousel %}
+        {% render_carousel "Interesting pages" random_carousel %}
+    {% endif %}
 {% endblock %}

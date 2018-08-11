@@ -13,19 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
+from tagging import views as tviews
+from anw import models, views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('tinymce/', include('tinymce.urls')),
-    path('wiki/', include('anw.urls')),
-    path('tags/', include('multitag.urls'))
+    path('<str:tag>/', tviews.TaggedObjectList.as_view(
+        model=models.Page,
+        template_name="page_list.html",
+        related_tags=True
+    ), name="tags")
 ]
-
-if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    from django.conf.urls.static import static
-    urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

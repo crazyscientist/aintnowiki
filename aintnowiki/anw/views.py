@@ -14,6 +14,7 @@ from anw.models import Page, Image
 class FakeQuerySet(object):
     model=[]
 
+
 # Create your views here.
 class PageView(DetailView):
     template_name = "page.html"
@@ -21,6 +22,7 @@ class PageView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["carousel"] = context["object"].get_children()
         return context
 
 
@@ -43,8 +45,7 @@ class HomeView(PageView):
             pks.add(random.randint(1, count))
             if len(pks) >= limit:
                 break
-        context["carousel"] = self.model.objects.filter(pk__in=pks)
-
+        context["random_carousel"] = self.model.objects.filter(pk__in=pks)
         return context
 
 
@@ -117,5 +118,4 @@ class ImageListView(ListView):
     template_name = "image_list.html"
 
     def render_to_response(self, context, **response_kwargs):
-        print(context)
         return super().render_to_response(context, **response_kwargs)

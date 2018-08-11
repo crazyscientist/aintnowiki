@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'tinymce',
     'tagging',
     'bootstrap4',
-    'anw'
+    'anw',
+    'multitag'
 ]
 
 MIDDLEWARE = [
