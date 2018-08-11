@@ -13,15 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.conf import settings
-from django.urls import path, include
-from tagging import views as tviews
-from anw import models, views
+from django.urls import path
+from tagging import models
+from multitag import views
 
 urlpatterns = [
-    path('<str:tag>/', tviews.TaggedObjectList.as_view(
-        model=models.Page,
+    path('<str:tag>/', views.TagView.as_view(
+        model=models.Tag,
         template_name="page_list.html",
         related_tags=True
     ), name="tags")

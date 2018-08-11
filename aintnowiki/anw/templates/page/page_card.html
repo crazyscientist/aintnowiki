@@ -2,8 +2,11 @@
 
 <div class="card shadow">
     <div class="card-header">
-        <a href="{% url 'anw-page' p.slug %}">{{ p }}</a>
+        <a href="{{ p.get_url }}">{{ p }}</a>
     </div>
+    {% if p.body.url %}
+        <img class="card-img-top" src="{{ p.body.url }}" alt="Card image cap">
+    {% endif %}
     <div class="card-body">
         <p class="card-text">{{ p.meta_description }}</p>
     </div>

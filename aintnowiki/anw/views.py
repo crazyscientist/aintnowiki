@@ -53,6 +53,7 @@ class SearchView(FormMixin, ListView):
     form_class = anw.forms.SearchForm
     model = Page
     template_name = "page_list.html"
+    ordering = "slug"
     paginate_by = 20
 
     def get_queryset(self):
@@ -116,6 +117,7 @@ class SitemapJsonView(JSONResponseMixin, ListView):
 class ImageListView(ListView):
     model = Image
     template_name = "image_list.html"
+    ordering = "slug"
 
     def render_to_response(self, context, **response_kwargs):
         return super().render_to_response(context, **response_kwargs)

@@ -1,10 +1,10 @@
 import re
 
-from django.template import Node, Library
+from django.template import Node, Library, TemplateSyntaxError
 from django.db.models import Count
 
 from tagging.models import Tag
-from tagging.utils import calculate_cloud, LOGARITHMIC
+from tagging.utils import calculate_cloud, LOGARITHMIC, LINEAR
 
 
 register = Library()
@@ -24,7 +24,6 @@ class TagCloud(Node):
 @register.tag()
 def get_tagcloud(parser, token):
     bits = token.contents.split()
-    print("= DEBUG =", bits)
     kwargs = {}
     context_var = "tagcloud"
 
@@ -42,6 +41,20 @@ def get_tagcloud(parser, token):
             kwargs[match.group("key")] = match.group("value")
 
     if "steps" in kwargs:
-        kwargs["steps"] = int(kwargs["steps"])
-    print("= DEBUG = KWARGS", kwargs)
+        try:
+            kwargs["steps"] = int(kwargs["steps"])
+        except:
+            raise TemplateSyntaxError("'steps' needs to be a positive integer.")
+    if "distribution" in kwargs:
+        try:
+            kwargs["distribution"] = int(kwargs["distribution"])
+        except:
+            raise TemplateSyntaxError(
+                "'distribution' needs to be one of: tagging.utils.LINEAR or tagging.utils.LOGARITHMIC"
+            )
+        else:
+            if kwargs["distribution"] not in [LINEAR, LOGARITHMIC]:
+                raise TemplateSyntaxError(
+                "'distribution' needs to be one of: tagging.utils.LINEAR or tagging.utils.LOGARITHMIC"
+            )
     return TagCloud(context_var, **kwargs)

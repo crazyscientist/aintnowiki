@@ -1,6 +1,7 @@
 import shlex
 
 from django.db import models
+from django.urls import reverse
 import tinymce.models
 import tagging.fields
 
@@ -46,6 +47,12 @@ class Page(BaseModel):
     def get_children(self):
         return self.children_set.all()
 
+    def get_url(self):
+        return reverse("anw-page", args=(self.slug,))
+
 
 class Image(BaseModel):
     body = models.ImageField(upload_to='uploads/%Y/%m/%d/')
+
+    def get_url(self):
+        return "#"
