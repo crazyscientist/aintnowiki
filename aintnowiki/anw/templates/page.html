@@ -2,6 +2,29 @@
 {% load tagging_tags %}
 {% load render_carousel %}
 
+{% block sidebar %}
+    <div id="scrollspy" class="list-group pt-5 mt-5">
+    </div>
+
+    <script>
+        $(function() {
+            function Generator() {};
+
+            Generator.prototype.val =  0;
+            Generator.prototype.getId = function() {
+                return this.val++;
+            };
+            var idGen =new Generator();
+
+            $(":header").each(function(idx, elem){
+                console.log(idGen.getId());
+                <!--$(this).prepend("<a name='heading-"+idGen.getId()+"'></a>");-->
+                $("#scrollspy").append("<a href='' class='list-group-item list-group-item-action'>"+$(this).text()+"</a>");
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -12,7 +35,7 @@
             {% endfor %}
         </ol>
     </nav>
-    <div class="container">
+    <div class="container p-3 bg-white rounded shadow">
 
         {{ object.body|safe }}
 
