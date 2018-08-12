@@ -1,9 +1,9 @@
 <div class="container">
         <h3>{{ carousel_title }}</h3>
             <div class="container mt-3 mb-3">
-                <div class="card-deck">
+                <div class="card-columns">
                     {% for p in carousel %}
-                        {% include 'page/page_card.html' %}
+                        {% include 'object_list/object_card.html' %}
                     {% endfor %}
                 </div>
             </div>

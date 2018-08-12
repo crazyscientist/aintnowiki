@@ -1,9 +1,32 @@
+import random
 import shlex
 
 from django.db import models
 from django.urls import reverse
 import tinymce.models
 import tagging.fields
+
+
+class PageManager(models.Manager):
+    def random(self, howmany=1):
+        pks = set()
+        count = self.count()
+        limit = min(
+            howmany,
+            count
+        )
+
+        while True:
+            try:
+                random_page = self.model.objects.get(pk = random.randint(0, count - 1))
+            except self.model.DoesNotExist:
+                continue
+            else:
+                pks.add(random_page)
+                if len(pks) >= limit:
+                    break
+
+        return pks
 
 
 # Create your models here.
@@ -34,6 +57,7 @@ class BaseModel(models.Model):
 
 
 class Page(BaseModel):
+    objects = PageManager()
     body = tinymce.models.HTMLField(help_text='Content of the Page')
     parent = models.ForeignKey('Page', models.PROTECT, help_text='Parent Page', blank=True, null=True, related_name='children_set')
 

@@ -5,17 +5,7 @@
 
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-9">
-                {{ object.body|safe }}
-            </div>
-            <div class="col-3 p-3">
-                {% get_tagcloud as tagcloud with steps=6 %}
-                {% for tag in tagcloud %}
-                    <a href="{% url 'tags' tag %}" class="btn btn-primary m-2 cloud-{{ tag.font_size }}">{{ tag }}</a>
-                {% endfor %}
-            </div>
-        </div>
+        {{ object.body|safe }}
     </div>
 
     <div class="container">
@@ -32,4 +22,11 @@
     {% if random_carousel %}
         {% render_carousel "Interesting pages" random_carousel %}
     {% endif %}
+
+    <div class="container p-3">
+        {% get_tagcloud as tagcloud with steps=6 %}
+        {% for tag in tagcloud %}
+            <a href="{% url 'tags' tag %}" class="btn btn-primary m-2 cloud-{{ tag.font_size }}">{{ tag }}</a>
+        {% endfor %}
+    </div>
 {% endblock %}

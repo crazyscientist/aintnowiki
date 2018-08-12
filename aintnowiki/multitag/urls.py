@@ -20,7 +20,7 @@ from multitag import views
 urlpatterns = [
     path('<str:tag>/', views.TagView.as_view(
         model=models.Tag,
-        template_name="page_list.html",
+        template_name="object_list.html",
         related_tags=True
     ), name="tags")
 ]
