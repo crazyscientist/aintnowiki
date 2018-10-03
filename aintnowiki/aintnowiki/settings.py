@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -27,10 +26,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,10 +57,10 @@ ROOT_URLCONF = 'aintnowiki.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'BACKEND':  'django.template.backends.django.DjangoTemplates',
+        'DIRS':     [],
         'APP_DIRS': True,
-        'OPTIONS': {
+        'OPTIONS':  {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -74,17 +73,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'aintnowiki.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME':   os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -104,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -118,7 +114,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
@@ -126,27 +121,28 @@ STATIC_URL = '/static/'
 
 # TinyMCE config
 TINYMCE_DEFAULT_CONFIG = {
-	'plugins': "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-	'theme': "advanced",
-	'theme_advanced_toolbar_location': "top",
-	'theme_advanced_toolbar_align': "left",
-	'theme_advanced_statusbar_location': "bottom",
-	'theme_advanced_buttons1' : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,attribs,styleprops",
-	'theme_advanced_buttons2' : "fontselect,fontsizeselect,|,tablecontrols,",
-	'theme_advanced_buttons3' : "cut,copy,paste,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,",
-	'theme_advanced_buttons4' : "visualchars,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,preview,fullscreen,code,spellchecker",
-	'theme_advanced_resizing' : 'true',
-	'skin' : "o2k7",
-	'skin_variant' : "silver",
-	'body_id': "pages_body",
-	'body_class': "pages_body",
-	'width': "100%",
-	'height': "30em",
-	# 'content_css': MEDIA_URL + "themes/"+ WIKI_THEME +"/css/theme.css" ,
-	'relative_urls': 'false',
-	'preformatted': 'true',
-	'verify_html': 'false',
-	# 'file_browser_callback': 'CustomFileBrowser'
+    'plugins':                           "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+    'theme':                             "advanced",
+    'theme_advanced_toolbar_location':   "top",
+    'theme_advanced_toolbar_align':      "left",
+    'theme_advanced_statusbar_location': "bottom",
+    'theme_advanced_buttons1':           "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,attribs,styleprops",
+    'theme_advanced_buttons2':           "fontselect,fontsizeselect,|,tablecontrols,",
+    'theme_advanced_buttons3':           "cut,copy,paste,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,",
+    'theme_advanced_buttons4':           "visualchars,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,preview,fullscreen,code,spellchecker",
+    'theme_advanced_resizing':           'true',
+    'skin':                              "o2k7",
+    'skin_variant':                      "silver",
+    'body_id':                           "pages_body",
+    'body_class':                        "pages_body",
+    'width':                             "100%",
+    'height':                            "30em",
+    'content_css':                       "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css",
+    # 'content_css': MEDIA_URL + "themes/"+ WIKI_THEME +"/css/theme.css" ,
+    'relative_urls':                     'false',
+    'preformatted':                      'true',
+    'verify_html':                       'false',
+    # 'file_browser_callback': 'CustomFileBrowser'
 }
 
 MEDIA_ROOT = BASE_DIR

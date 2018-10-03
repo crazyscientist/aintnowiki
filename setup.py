@@ -6,12 +6,13 @@ setup(
     name='Aint No Wiki',
     version='3.0.0',
     description='Some sort of a CMS or Wiki',
-    author='Andreas Pritschet',
-    author_email='andreas@pritschet.me',
-    url='https://pritschet.me',
+    author='Andreas Hasenkopf',
+    author_email='andreas@hasenkopf.xyz',
+    url='https://hasenkopx.xyz',
     packages=['aintnowiki',],
     zip_safe=False,
     install_requires=[
-        "django=>2.0,<2.1", "django-tinymce", "django-tagging", "django-bootstrap4", "pillow"
+        "django=>2.0,<2.1", "django-tinymce", "django-tagging",
+        "django-bootstrap4", "pillow", "django-filebrowser-no-grappelli"
     ]
 )

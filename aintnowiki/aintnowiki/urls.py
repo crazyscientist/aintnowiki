@@ -16,12 +16,15 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+from filebrowser.sites import site
 
 urlpatterns = [
+    path('admin/filebrowser', site.urls),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('wiki/', include('anw.urls')),
-    path('tags/', include('multitag.urls'))
+    path('tags/', include('multitag.urls')),
+
 ]
 
 if settings.DEBUG:
