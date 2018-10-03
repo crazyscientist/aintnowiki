@@ -19,3 +19,7 @@ body {
 .card-columns {
   column-count: 4;
 }
+
+#scrollspy {
+    z-index: 1019;
+}

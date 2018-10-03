@@ -17,9 +17,8 @@
             var idGen =new Generator();
 
             $(":header").each(function(idx, elem){
-                console.log(idGen.getId());
-                <!--$(this).prepend("<a name='heading-"+idGen.getId()+"'></a>");-->
-                $("#scrollspy").append("<a href='' class='list-group-item list-group-item-action'>"+$(this).text()+"</a>");
+                $("<a name='heading-"+idx+"'></a>").insertBefore(elem);
+                $("#scrollspy").append("<a href='#heading-"+idx+"' class='list-group-item list-group-item-action'>"+$(this).text()+"</a>");
             });
         });
     </script>
