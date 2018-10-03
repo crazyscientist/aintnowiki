@@ -8,6 +8,9 @@ import tagging.fields
 
 
 class PageManager(models.Manager):
+    def get_by_natural_key(self, slug):
+        return self.get(slug=slug)
+
     def random(self, howmany=1):
         pks = set()
         count = self.count()
@@ -60,6 +63,9 @@ class Page(BaseModel):
     objects = PageManager()
     body = tinymce.models.HTMLField(help_text='Content of the Page')
     parent = models.ForeignKey('Page', models.PROTECT, help_text='Parent Page', blank=True, null=True, related_name='children_set')
+
+    def natural_key(self):
+        return (self.slug, )
 
     def get_breadcrumbs(self):
         crumbs = []
