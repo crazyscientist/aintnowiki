@@ -17,7 +17,7 @@ body {
 .cloud-6 {font-size: 170%; font-weight: bold;}
 
 .card-columns {
-  column-count: 4;
+  column-count: 3;
 }
 
 #scrollspy {

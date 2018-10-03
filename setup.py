@@ -13,6 +13,7 @@ setup(
     zip_safe=False,
     install_requires=[
         "django=>2.0,<2.1", "django-tinymce", "django-tagging",
-        "django-bootstrap4", "pillow", "django-filebrowser-no-grappelli"
+        "django-bootstrap4", "pillow", "django-filebrowser-no-grappelli",
+        "solr-thumbnail"
     ]
 )

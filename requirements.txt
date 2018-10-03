@@ -4,3 +4,4 @@ django-tinymce
 django-tagging
 django-bootstrap4
 pillow
+solr-thumbnail

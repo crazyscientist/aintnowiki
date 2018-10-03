@@ -149,4 +149,7 @@ MEDIA_ROOT = BASE_DIR
 MEDIA_URL = "/media/"
 
 ANW_HOMEPAGE = "home"
-ANW_NUM_CARDS = 4
+ANW_NUM_CARDS = 3
+
+# This option is required by filebrowser/sorl
+TEMPLATE_DEBUG = DEBUG
