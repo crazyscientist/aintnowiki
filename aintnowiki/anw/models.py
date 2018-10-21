@@ -5,9 +5,10 @@ from django.db import models
 from django.urls import reverse
 import tinymce.models
 import tagging.fields
+from sorl.thumbnail import ImageField
 
 
-class PageManager(models.Manager):
+class BaseManager(models.Manager):
     def get_by_natural_key(self, slug):
         return self.get(slug=slug)
 
@@ -58,14 +59,14 @@ class BaseModel(models.Model):
         keywords = shlex.split(self.meta_keywords)
         return ', '.join(list(tags) + keywords)
 
-
-class Page(BaseModel):
-    objects = PageManager()
-    body = tinymce.models.HTMLField(help_text='Content of the Page')
-    parent = models.ForeignKey('Page', models.PROTECT, help_text='Parent Page', blank=True, null=True, related_name='children_set')
-
     def natural_key(self):
         return (self.slug, )
+
+
+class Page(BaseModel):
+    objects = BaseManager()
+    body = tinymce.models.HTMLField(help_text='Content of the Page')
+    parent = models.ForeignKey('Page', models.PROTECT, help_text='Parent Page', blank=True, null=True, related_name='children_set')
 
     def get_breadcrumbs(self):
         crumbs = []
@@ -82,7 +83,8 @@ class Page(BaseModel):
 
 
 class Image(BaseModel):
-    body = models.ImageField(upload_to='uploads/%Y/%m/%d/')
+    objects = BaseManager()
+    body = ImageField(upload_to='uploads/')
 
     def get_url(self):
-        return "#"
+        return self.body.url

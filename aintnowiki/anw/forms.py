@@ -6,5 +6,5 @@ class SitemapForm(forms.Form):
 
 
 class SearchForm(forms.Form):
-    searchstring = forms.CharField(help_text="What are you looking for?")
+    searchstring = forms.CharField(help_text="What are you looking for?", required=False)
     page = forms.IntegerField(widget=forms.HiddenInput, help_text="Pagination", initial=1, required=False)

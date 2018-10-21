@@ -1,11 +1,20 @@
 {% load tagging_tags %}
+{% load thumbnail %}
 
 <div class="card shadow">
     <div class="card-header">
-        <a href="{{ p.get_url }}">{{ p }}</a>
+        {% if use_fancybox %}
+            <strong>{{ p }}</strong>
+        {% else %}
+            <a href="{{ p.get_url }}">{{ p }}</a>
+        {% endif %}
     </div>
     {% if p.body.url %}
-        <img class="card-img-top" src="{{ p.body.url }}" alt="Card image cap">
+        {% thumbnail p.body "288x288" crop="center" format="PNG" as im %}
+            <a href="{{ p.body.url }}" data-fancybox="gallery" data-caption="{{ p }}">
+                <img class="card-img-top" src="{{ im.url }}" alt="{{ p }}">
+            </a>
+        {% endthumbnail %}
     {% endif %}
     <div class="card-body">
         <p class="card-text">{{ p.meta_description }}</p>

@@ -45,6 +45,7 @@ class SearchView(FormMixin, ListView):
     template_name = "object_list.html"
     ordering = "slug"
     paginate_by = 16
+    _my_form = None
 
     def get_queryset(self):
         self._my_form = self.form_class(getattr(self.request, self.request.method, {}))
@@ -116,5 +117,7 @@ class ImageListView(ListView):
     ordering = "slug"
     paginate_by = 16
 
-    def render_to_response(self, context, **response_kwargs):
-        return super().render_to_response(context, **response_kwargs)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context["use_fancybox"] = True
+        return context
