@@ -140,7 +140,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'height':                            "30em",
     'content_css':                       "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css",
     # 'content_css': MEDIA_URL + "themes/"+ WIKI_THEME +"/css/theme.css" ,
-    'relative_urls':                     'false',
+    'relative_urls':                     False,
     'preformatted':                      'true',
     'verify_html':                       'false',
     # 'file_browser_callback': 'CustomFileBrowser'
@@ -148,6 +148,7 @@ TINYMCE_DEFAULT_CONFIG = {
 
 MEDIA_ROOT = BASE_DIR
 MEDIA_URL = "/media/"
+FILEBROWSER_SAVE_FULL_URL = True
 
 ANW_HOMEPAGE = "home"
 ANW_NUM_CARDS = 3

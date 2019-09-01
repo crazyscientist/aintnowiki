@@ -1,4 +1,4 @@
-django
+django<2.3
 django-filebrowser-no-grappelli
 django-tinymce
 django-tagging

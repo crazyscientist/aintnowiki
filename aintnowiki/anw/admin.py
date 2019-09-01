@@ -7,6 +7,7 @@ from anw.models import Page, Image
 class PageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'parent', 'featured')
+    list_filter = ('parent', 'featured')
 
 
 @admin.register(Image)

@@ -111,13 +111,13 @@ class SitemapJsonView(JSONResponseMixin, ListView):
         return self.render_to_json_response(context, safe=False, **response_kwargs)
 
 
-class ImageListView(ListView):
-    model = Image
-    template_name = "object_list.html"
-    ordering = "slug"
-    paginate_by = 16
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(object_list=None, **kwargs)
-        context["use_fancybox"] = True
-        return context
+# class ImageListView(ListView):
+#     model = Image
+#     template_name = "object_list.html"
+#     ordering = "slug"
+#     paginate_by = 16
+#
+#     def get_context_data(self, *, object_list=None, **kwargs):
+#         context = super().get_context_data(object_list=None, **kwargs)
+#         context["use_fancybox"] = True
+#         return context
