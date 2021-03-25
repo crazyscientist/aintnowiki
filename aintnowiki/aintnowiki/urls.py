@@ -1,7 +1,7 @@
 """aintnowiki URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.0/topics/http/urls/
+    https://docs.djangoproject.com/en/dev/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,21 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.contrib import admin
+from django.conf.urls.static import static
 from django.urls import path, include
-from filebrowser.sites import site
+
+from wiki.admin import custom_admin_site
 
 urlpatterns = [
-    path('admin/filebrowser', site.urls),
-    path('admin/', admin.site.urls),
-    path('tinymce/', include('tinymce.urls')),
-    path('wiki/', include('anw.urls')),
-    path('tags/', include('multitag.urls')),
-
-]
-
-if settings.DEBUG:
-    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    from django.conf.urls.static import static
-    urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('admin/', custom_admin_site.urls),
+    path('api/tagging/', include(('tagging.api_urls', 'tagging'), namespace="api_tagging")),
+    path('api/wiki/', include(('wiki.api_urls', 'wiki'), namespace="api_wiki")),
+    path('wiki/', include(('wiki.urls', 'wiki'), namespace="wiki")),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
+  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,80 @@
+{% for cssfile in widget.media.css %}
+    <link rel="stylesheet" href="{{ cssfile }}">
+{% endfor %}
+
+{% for jsfile in widget.media.js %}
+    <script src="{{ jsfile }}"></script>
+{% endfor %}
+
+<textarea name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}>{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+<div id="editor_{{ widget.name }}"></div>
+
+<script>
+    const upload_url = "{% url 'admin:img_upload' %}";
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function editor_to_formfield(event) {
+        if (editor === undefined) {
+            console.error("The global 'editor' is not defined!")
+            event.preventDefault();
+        } else {
+            document.querySelector("#{{ widget.attrs.id }}").textContent = editor.getMarkdown();
+        }
+    }
+
+    const { Editor } = toastui;
+    const { uml } = Editor.plugin;
+    const editor = new Editor({
+        el: document.querySelector("#editor_{{ widget.name }}"),
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
+        initialValue: document.querySelector("#{{ widget.attrs.id }}").textContent,
+        usageStatistics: false,
+        hooks: {
+            addImageBlobHook: function (blob, callback, source) {
+                console.log(blob, callback, source)
+                console.log("Uploading file");
+                let formData = new FormData();
+
+                formData.append('image', blob);
+                fetch(upload_url, {
+                    method: 'POST',
+                    headers: {
+                        "X-CSRFToken": getCookie('csrftoken')
+                    },
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log("File uploaded to", result.url);
+                        callback(result.url);
+                    });
+                return false;
+            }
+        },
+        plugins: [uml]
+    });
+
+    (
+        function () {
+            editor.options.el.closest("form").onsubmit = editor_to_formfield;
+        }
+    )();
+
+
+</script>

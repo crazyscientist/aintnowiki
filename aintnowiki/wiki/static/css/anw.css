@@ -1,0 +1,10 @@
+.tag-expand {
+    width: 2.0rem;
+    max-width: 2.0rem;
+}
+
+#searchbox {
+    max-width: 30vw;
+    min-width: 10rem;
+    width: 12rem;
+}
