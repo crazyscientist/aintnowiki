@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 from wiki.admin import custom_admin_site
 
@@ -24,5 +25,6 @@ urlpatterns = [
     path('api/tagging/', include(('tagging.api_urls', 'tagging'), namespace="api_tagging")),
     path('api/wiki/', include(('wiki.api_urls', 'wiki'), namespace="api_wiki")),
     path('wiki/', include(('wiki.urls', 'wiki'), namespace="wiki")),
+    path('', RedirectView.as_view(pattern_name='wiki:index', permanent=True))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -16,7 +16,6 @@
               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
         <link href="{% static 'css/anw.css' %}" rel="stylesheet">
 
-        <!--script src="https://cdn.jsdelivr.net/npm/vue@2"></script-->
         <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
         <script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
@@ -223,9 +222,6 @@
                             return null
                         }
 
-                        // const { Editor } = toastui;
-                        // const { uml } = Editor.plugin;
-
                         this.options.el = this.$refs.ToastUiViewer;
                         this.options.viewer = true;
                         this.options.usageStatistics = false;
@@ -316,7 +312,7 @@
                             })
                             .then(function (data) {
                                 vm.observer.unobserve(vm.$refs.Spinner);
-                                vm.items = vm.items.concat(data.results);
+                                vm.items = vm.items.concat(data.results || []);
                                 if (data["next"] !== null) {
                                     vm.nextUrl = new URL(data["next"]);
                                     vm.showSpinner = true;
