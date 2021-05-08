@@ -3,10 +3,12 @@ from urllib.parse import urljoin
 from uuid import uuid1
 
 from django.conf import settings as gsettings
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Value
 from django.forms import Form, ImageField
-from django.http import JsonResponse
-from django.views.generic import TemplateView, DetailView, FormView
+from django.http import JsonResponse, HttpResponse
+from django.urls import reverse
+from django.utils.functional import cached_property
+from django.views.generic import TemplateView, DetailView, FormView, View, ListView
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
@@ -63,18 +65,20 @@ class ApiPageView(RetrieveAPIView):
 class WikiMixin:
     template_name = "wiki.html"
     model = Page
+    disallow_indexing = False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["BRAND_HTML"] = settings.BRAND_HTML
         context["PLANTUML_RENDERER_URL"] = settings.PLANTUML_RENDERER_URL
         context["navigation"] = get_tag_tree(serialize=True)
+        context["noindex"] = self.disallow_indexing
 
         return context
 
 
 class VueView(WikiMixin, TemplateView):
-    pass
+    disallow_indexing = True
 
 
 class PageView(WikiMixin, DetailView):
@@ -122,3 +126,22 @@ class AdminImageUploadView(FormView):
             "status": "created",
             "url": self.get_media_url(target_file)
         })
+
+
+class FqdnMixin:
+    @cached_property
+    def fqdn(self):
+        return "{}://{}".format(self.request.scheme, self.request.get_host())
+
+
+class RobotView(FqdnMixin, View):
+    def get(self, request, *args, **kwargs):
+        sitemap_url = urljoin(self.fqdn, reverse("wiki:sitemap"))
+        return HttpResponse("Sitemap: {}".format(sitemap_url))
+
+
+class SitemapView(FqdnMixin, ListView):
+    template_name = "sitemap.xml"
+
+    def get_queryset(self):
+        return Page.objects.all().only("slug", "changed").annotate(_fqdn=Value(self.fqdn))

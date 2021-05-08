@@ -19,12 +19,14 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 
 from wiki.admin import custom_admin_site
+from wiki.views import RobotView
 
 urlpatterns = [
     path('admin/', custom_admin_site.urls),
     path('api/tagging/', include(('tagging.api_urls', 'tagging'), namespace="api_tagging")),
     path('api/wiki/', include(('wiki.api_urls', 'wiki'), namespace="api_wiki")),
     path('wiki/', include(('wiki.urls', 'wiki'), namespace="wiki")),
-    path('', RedirectView.as_view(pattern_name='wiki:index', permanent=True))
+    path('', RedirectView.as_view(pattern_name='wiki:index', permanent=True)),
+    path('robots.txt', RobotView.as_view(), name="robots")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

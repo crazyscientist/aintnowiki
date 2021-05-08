@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from django.db import models
 from django.urls import reverse
 from rest_framework import serializers
@@ -17,6 +19,15 @@ class Page(TaggedMixin):
 
     def __str__(self):
         return self.title
+
+    @property
+    def url(self):
+        fqdn = getattr(self, "_fqdn", None)
+        url = reverse("wiki:page-detail", kwargs={"slug": self.slug})
+        if fqdn:
+            return urljoin(fqdn, url)
+
+        return url
 
     class Meta:
         ordering = ('-changed',)
