@@ -1,0 +1,106 @@
+@use "sass:map";
+@import "../../../../node_modules/bootstrap/scss/functions";
+
+@import "../../../../node_modules/bootstrap/scss/variables";
+@import "../../../../node_modules/bootstrap/scss/mixins";
+
+$primary: $indigo-600;
+$light: $gray-700;
+$dark: $gray-100;
+$custom-theme-colors: ("primary": $primary, "light": $light, "dark": $dark);
+$theme-colors: map.merge($theme-colors, $custom-theme-colors);
+
+$enable-shadows: true;
+$enable-responsive-font-sizes: true;
+$body-bg: $gray-800;
+$body-color: $gray-100;
+$link-color: color-contrast($body-bg, $indigo-200, $indigo-800);
+$link-hover-color: tint-color($link-color, 15%);
+$table-hover-color: rgba($table-color, .5);
+$table-active-bg: rgba($table-hover-bg, .5);
+$table-dark-color: $gray-800;
+$table-dark-bg: $gray-100;
+
+$yiq-text-dark: $gray-800;
+$yiq-text-light: $gray-100;
+$table-accent-bg: $red;
+$table-bg-level: +5;
+$table-head-bg: $gray-100;
+$theme-color-interval: 10%;
+$yiq-contrasted-threshold: 100;
+$text-muted: $gray-500;
+$input-disabled-bg: $gray-600;
+$form-feedback-valid-color: tint-color(map-get($theme-colors, "success"), 15%);
+$form-feedback-invalid-color: tint-color(map-get($theme-colors, "danger"), 15%);
+$btn-link-disabled-color: $gray-500;
+$input-bg: $gray-400;
+$input-border-color: $gray-200;
+$custom-control-label-disabled-color: $gray-500;
+$nav-link-disabled-color: $gray-500;
+$border-color: $gray-600;
+$nav-tabs-border-color: $border-color;
+$nav-tabs-link-hover-border-color: $gray-400 $gray-400 $nav-tabs-border-color;
+$nav-tabs-link-active-color: $gray-200;
+$navbar-dark-color: rgba($gray-200, .75);
+$navbar-dark-hover-color: rgba($gray-300, .75);
+$navbar-dark-active-color: $gray-900;
+$navbar-dark-disabled-color: rgba($gray-500, .25);
+$navbar-light-color: rgba($gray-500, .5);
+$navbar-light-hover-color: rgba($gray-500, .7);
+$navbar-light-active-color: rgba($gray-500, .9);
+$navbar-light-disabled-color: rgba($gray-500, .3);
+$dropdown-link-color: $gray-100;
+$dropdown-link-hover-color: shade-color($gray-100, 5%);
+$dropdown-link-hover-bg: $gray-600;
+$dropdown-bg: tint-color(rgba($body-bg, .7), 8%);
+$dropdown-color: shade-color($body-color, 8%);
+$pagination-bg: $gray-700;
+$pagination-border-color: $border-color;
+$pagination-hover-bg: $gray-800;
+$component-active-color: $gray-200;
+$pagination-disabled-bg: $gray-500;
+$pagination-disabled-border-color: $border-color;
+$jumbotron-bg: tint-color($body-bg, 8%);
+$card-border-color: rgba($border-color, .125);
+$card-cap-bg: rgba($body-bg, .4);
+$card-bg: tint-color($body-bg, 8%);
+$card-color: $body-color;
+$blockquote-small-color: $gray-500;
+$toast-background-color: rgba($body-bg, .85);
+$toast-border-color: $border-color;
+$toast-header-background-color: rgba($body-bg, .8);
+$toast-header-color: $gray-400;
+$modal-content-bg: tint-color($body-bg, 20%);
+$alert-bg-level: +4;
+$alert-border-level: 0;
+$alert-color-level: -8;
+$progress-bg: $gray-700;
+$progress-bar-color: $gray-200;
+$list-group-bg: tint-color(rgba($body-bg, .7), 15%);
+$list-group-hover-bg: rgba($gray-100, .3);
+$list-group-disabled-color: $text-muted;
+$list-group-disabled-bg: shade-color($list-group-bg, 8%);
+$list-group-color: $body-color;
+$thumbnail-border-color: $border-color;
+$breadcrumb-bg: shade-color(rgba($body-bg, .8), 5%);
+$breadcrumb-divider-color: $gray-500;
+$code-color: tint-color($pink, 15%);
+$kbd-bg: $gray-300;
+$kbd-color: $gray-900;
+$success: tint-color($green, 8%);
+$info: tint-color($cyan, 15%);
+$offcanvas-bg-color: shade-color(rgba($primary, .8), 30%);
+$offcanvas-color: $body-color;
+
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
+
+.tag-expand {
+    width: 2.0rem;
+    max-width: 2.0rem;
+}
+
+#searchbox {
+    max-width: 30vw;
+    min-width: 10rem;
+    width: 12rem;
+}
