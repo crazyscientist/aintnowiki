@@ -9,8 +9,22 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-
 from pathlib import Path
+from environ import Env
+
+
+ENV_FILES = (
+    Path.home().joinpath(Path('.config/anw')),
+    Path.home().joinpath(Path('.anwrc')),
+    '/etc/anw',
+    '/etc/anw/env',
+)
+for env_file in ENV_FILES:
+    if env_file.is_file():
+        Env.read_env(env_file)
+        break
+
+env = Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +34,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v4cbc^3kj_%xnq#5!9*vd9ga!4en8)&(zigxtwv25ei04*9w5k'
+SECRET_KEY = env("SECRET_KEY",
+                 default='django-insecure-v4cbc^3kj_%xnq#5!9*vd9ga!4en8)&(zigxtwv25ei04*9w5k')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG", default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 # Application definition
 
@@ -38,7 +53,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'tagging',
-    # 'photo_carousel',
     'wiki'
 ]
 
@@ -78,12 +92,12 @@ WSGI_APPLICATION = 'aintnowiki.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aintnowiki',
-        'USER': 'andi',
-        'PASSWORD': '*****',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'ENGINE': env("DATABASE_BACKEND", default='django.db.backends.postgresql'),
+        'NAME': env("DATABASE_NAME", default='aintnowiki'),
+        'USER': env("DATABASE_USER", default='andi'),
+        'PASSWORD': env("DATABASE_PASSWORD", default='*****'),
+        'HOST': env("DATABASE_HOST", default='localhost'),
+        'PORT': env("DATABASE_PORT", default='5432')
     }
 }
 
@@ -124,11 +138,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = env("STATIC_URL", default='/static/')
 
 # Media fies
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR.joinpath(Path('media'))
+MEDIA_URL = env("MEDIA_URL", default='/media/')
+MEDIA_ROOT = env("MEDIA_ROOT", default=BASE_DIR.joinpath(Path('media')))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
