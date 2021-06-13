@@ -21,7 +21,7 @@ ENV_FILES = (
 )
 for env_file in ENV_FILES:
     if env_file.is_file():
-        Env.read_env(env_file)
+        Env.read_env(env_file.as_posix())
         break
 
 env = Env()

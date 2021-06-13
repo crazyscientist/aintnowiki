@@ -1,8 +1,10 @@
 @use "sass:map";
 @import "../../../../node_modules/bootstrap/scss/functions";
+$btn-close-color: #CFCFCF;
 @import "../../../../node_modules/bootstrap/scss/variables";
 
 $primary: $indigo-600;
+$secondary: $orange-600;
 $light: $gray-700;
 $dark: $gray-100;
 $custom-theme-colors: ("primary": $primary, "secondary": $secondary, "light": $light, "dark": $dark);
@@ -92,7 +94,9 @@ $kbd-bg: $gray-300;
 $kbd-color: $gray-900;
 $success: tint-color($green, 8%);
 $info: tint-color($cyan, 15%);
-$offcanvas-bg-color: tint-color(rgba($primary, .8), 12%);
+$offcanvas-bg-color: rgba($gray-800, .8);
+$offcanvas-bg-color-shaded: rgba($gray-900, .8);
+$offcanvas-box-shadow: 0 0.5rem 1.5rem rgba($teal-200, .4);
 $offcanvas-color: $body-color;
 
 @import "../../../../node_modules/bootstrap/scss/mixins";
@@ -132,7 +136,13 @@ $offcanvas-color: $body-color;
 
 body {
     min-height: 100vh;
-    background: repeating-linear-gradient(12deg, $body-bg, $body-bg 1em, $body-bg-shaded 1em, $body-bg-shaded 2em) !important;
+    background: repeating-linear-gradient(12deg, $body-bg, $body-bg 1em,
+                                          $body-bg-shaded 1em, $body-bg-shaded 2em) !important;
+}
+
+.offcanvas {
+    background: repeating-linear-gradient(-78deg, $offcanvas-bg-color, $offcanvas-bg-color 1em,
+                                          $offcanvas-bg-color-shaded 1em, $offcanvas-bg-color-shaded 2em) !important;
 }
 
 .tag-expand {
