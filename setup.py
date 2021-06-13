@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    name='Aint No Wiki',
+    name='aintnowiki',
     version='4.0.0',
     description='Some sort of a CMS or Wiki',
     author='Andreas Hasenkopf',
     author_email='andreas@hasenkopf.xyz',
     url='https://hasenkopx.xyz',
-    packages=['aintnowiki',],
+    packages=find_packages('aintnowiki'),
+    package_dir={"": "aintnowiki"},
+    scripts=["aintnowiki/manage.py"],
     zip_safe=False,
-    install_requires=[
-        "django>=3.2,<3.3", "djangorestframework", "pillow"
-    ]
+    install_requires=["django>=3.2,<3.3", "djangorestframework", "django-environ"]
 )

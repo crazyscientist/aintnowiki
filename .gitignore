@@ -1,4 +1,6 @@
 .idea
 aintnowiki/media
+aintnowiki/static
 aintnowiki/wiki/static/.sass-cache
 aintnowiki/wiki/static/css/anw_theme.css.map
+docker_env

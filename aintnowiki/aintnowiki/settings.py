@@ -16,8 +16,8 @@ from environ import Env
 ENV_FILES = (
     Path.home().joinpath(Path('.config/anw')),
     Path.home().joinpath(Path('.anwrc')),
-    '/etc/anw',
-    '/etc/anw/env',
+    Path('/etc/anw'),
+    Path('/etc/anw/env'),
 )
 for env_file in ENV_FILES:
     if env_file.is_file():
@@ -139,10 +139,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = env("STATIC_URL", default='/static/')
+STATIC_ROOT = env("STATIC_ROOT", default=BASE_DIR.joinpath(Path('static')))
 
 # Media fies
 MEDIA_URL = env("MEDIA_URL", default='/media/')
 MEDIA_ROOT = env("MEDIA_ROOT", default=BASE_DIR.joinpath(Path('media')))
+
+for directory in (STATIC_ROOT, MEDIA_ROOT):
+    if not directory.is_dir():
+        directory.mkdir(parents=True, exist_ok=True)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field

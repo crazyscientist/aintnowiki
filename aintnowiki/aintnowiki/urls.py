@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic import RedirectView
+from django.views.static import serve
 
 from wiki.admin import custom_admin_site
 from wiki.views import RobotView
@@ -27,6 +27,9 @@ urlpatterns = [
     path('api/wiki/', include(('wiki.api_urls', 'wiki'), namespace="api_wiki")),
     path('wiki/', include(('wiki.urls', 'wiki'), namespace="wiki")),
     path('', RedirectView.as_view(pattern_name='wiki:index', permanent=True)),
-    path('robots.txt', RobotView.as_view(), name="robots")
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
-  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('robots.txt', RobotView.as_view(), name="robots"),
+    re_path(r'^{}(?P<path>.*)$'.format(settings.STATIC_URL.lstrip("/")), serve,
+            {"document_root": settings.STATIC_ROOT}),
+    re_path(r'^{}(?P<path>.*)$'.format(settings.MEDIA_URL.lstrip("/")), serve,
+            {"document_root": settings.MEDIA_ROOT}),
+]
