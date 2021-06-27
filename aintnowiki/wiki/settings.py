@@ -18,6 +18,6 @@ TOASTUI_VIEWER_STYLE_PATH = getattr(
     settings, "ANW_TOASTUI_VIEWER_STYLE_PATH",
     ["https://uicdn.toast.com/editor/2.5.2/toastui-editor-viewer.min.css"]
 )
-PLANTUML_RENDERER_URL = getattr(settings, "ANW_PLANTUML_RENDERER_URL",
-                                "http://localhost:8088/plantuml/svg/")
+PLANTUML_RENDERER_URL = env("PLANTUML_RENDERER_URL",
+                            default="http://www.plantuml.com/plantuml/svg/")
 VUE_JS_PATH = getattr(settings, "ANW_VUE_JS_PATH", ["https://cdn.jsdelivr.net/npm/vue@2"])

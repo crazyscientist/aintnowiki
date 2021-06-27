@@ -1,4 +1,5 @@
 include LICENSE
 include requirements.txt
+recursive-include aintnowiki/wiki/templates *
 recursive-include aintnowiki/wiki/static/css *
 recursive-include aintnowiki/wiki/static/js *
