@@ -75,6 +75,9 @@ class WikiMixin:
         context["PLANTUML_RENDERER_URL"] = settings.PLANTUML_RENDERER_URL
         context["navigation"] = get_tag_tree(serialize=True)
         context["noindex"] = self.disallow_indexing
+        context["head"] = {
+            "scripts": settings.TOASTUI_VIEWER_JS_PATH,
+        }
 
         return context
 

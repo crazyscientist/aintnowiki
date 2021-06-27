@@ -5,8 +5,9 @@
     <title>{% block title %}{{ object.title|default:"Ain't no title" }}{% endblock %}</title>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.js"></script>
-    <script src="https://uicdn.toast.com/editor-plugin-uml/latest/toastui-editor-plugin-uml.min.js"></script>
+    {% for script_url in head.scripts %}
+        <script src="{{ script_url }}"></script>
+    {% endfor %}
     {% verbatim %}
     <script type="text/x-template" id="tag-template">
         <span class="badge badge-pill bg-secondary me-2" v-bind:title="tag.description"
@@ -119,7 +120,7 @@
             viewerOptions: {
                 viewer: true,
                 usageStatistics: false,
-                // plugins: [uml],
+                plugins: [uml],
                 initialValue: object_data.content || ""
             },
             hideViewer: (object_data === "" || object_data === null
