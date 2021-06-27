@@ -1,6 +1,7 @@
 from django.conf import settings
+from aintnowiki.settings import env
 
-BRAND_HTML = "Ain't No Wiki"
+BRAND_HTML = env("BRAND_HTML", default="Ain't No Wiki")
 TOASTUI_EDITOR_JS_PATH = getattr(
     settings, "ANW_TOASTUI_EDITOR_JS_PATH",
     ["https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js",

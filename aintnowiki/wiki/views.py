@@ -3,9 +3,11 @@ from urllib.parse import urljoin
 from uuid import uuid1
 
 from django.conf import settings as gsettings
+from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models import Q, Count, Value
 from django.forms import Form, ImageField
 from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.views.generic import TemplateView, DetailView, FormView, View, ListView
@@ -145,3 +147,17 @@ class SitemapView(FqdnMixin, ListView):
 
     def get_queryset(self):
         return Page.objects.all().only("slug", "changed").annotate(_fqdn=Value(self.fqdn))
+
+
+def handler404(request, exception=None, template_name="404.html"):
+    path = Path(request.path)
+    context = {
+        "BRAND_HTML": settings.BRAND_HTML,
+        "noindex": True,
+        "objects": Page.objects
+            .annotate(similarity=TrigramSimilarity('slug', path.name))
+            .filter(similarity__gte=0.5)
+            .only("title", "slug", "summary")
+            .order_by("-similarity")
+    }
+    return render(request, template_name=template_name, context=context, status=404)

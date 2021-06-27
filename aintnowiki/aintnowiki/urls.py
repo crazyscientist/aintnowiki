@@ -19,7 +19,7 @@ from django.views.generic import RedirectView
 from django.views.static import serve
 
 from wiki.admin import custom_admin_site
-from wiki.views import RobotView
+from wiki.views import RobotView, handler404
 
 urlpatterns = [
     path('admin/', custom_admin_site.urls),

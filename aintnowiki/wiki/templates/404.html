@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<title>Not Found</title>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-dark navbar-expand bg-primary sticky-top shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'wiki:index' %}">{{ BRAND_HTML|safe }}</a>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="card border-danger shadow">
+            <div class="card-header text-danger p-3">
+                <h1>Not Found: <span class="font-monospace">{{ request.path }}</span></h1>
+            </div>
+            <div class="card-body">
+                <div class="card-title">
+                    <h3>Maybe these similar pages interest you?</h3>
+                </div>
+                <div class="card-text">
+                    <ul class="list-group m-3">
+                        {% for obj in objects %}
+                            <li class="list-group-item">
+                                <a href="{{ obj.url }}" title="{{ obj.summary }}">{{ obj }}</a>
+                                <span class="badge rounded-pill bg-primary float-end"
+                                      title="Similarity to your requsted URL">
+                                    {{ obj.similarity|floatformat:"-2" }}
+                                </span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item border-danger">No pages with similar URL</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
