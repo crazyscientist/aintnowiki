@@ -7,7 +7,7 @@ services:
      - 8088:8080
   anw:
     build: .
-    image: anw
+    image: anw:latest
     command: gunicorn -b 0.0.0.0:8000 --limit-request-line 8190 -w 4 --threads 16 --preload aintnowiki.wsgi
     ports:
       - 8087:8000

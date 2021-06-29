@@ -13,5 +13,6 @@ setup(
     package_dir={"": "aintnowiki"},
     scripts=["aintnowiki/manage.py"],
     zip_safe=False,
+    include_package_data=True,
     install_requires=["django>=3.2,<3.3", "djangorestframework", "django-environ"]
 )
